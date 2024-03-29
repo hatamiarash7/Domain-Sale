@@ -1,0 +1,14 @@
+server {
+    listen ${NGINX_PORT};
+    server_name localhost;
+    root /usr/share/nginx/html;
+
+    location / {
+        index index.html;
+        try_files $uri $uri/ /index.html;
+        sub_filter 'PAGE_TITLE' '${PAGE_TITLE}';
+        sub_filter 'TELEGRAM_USER' '${TELEGRAM_USER}';
+        sub_filter_once off;
+        add_header Cache-Control "no-cache";
+    }
+}
